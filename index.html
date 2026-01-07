@@ -108,22 +108,22 @@
 
     <p>Every resource must contain at least one data source.</p>
     <pre>
-\[\forall r \, ( \mathrm{Resource}(r) \rightarrow \exists ds \, ( \mathrm{includes}(r, ds) \wedge \mathrm{DataSource}(ds) ) )\]
+\forall r . \exists ds.  \mathrm{Resource}(r) \rightarrow   \mathrm{includes}(r, ds) 
     </pre>
 
     <p>The first argument of the includes predicate is a resource and the second is a data source.</p>
     <pre>
-\forall r, ds \, ( \mathrm{includes}(r, ds) \rightarrow \mathrm{Resource}(r) \wedge \mathrm{DataSource}(ds) )
+\forall r, ds .  \mathrm{includes}(r, ds) \rightarrow \mathrm{Resource}(r) \wedge \mathrm{DataSource}(ds) 
     </pre>
 
     <p>Every data source must belong to some resource.</p>
     <pre>
-\forall ds \, ( \mathrm{DataSource}(ds) \rightarrow \exists r \, ( \mathrm{includes}(r, ds) \wedge \mathrm{Resource}(r) ) )
+\forall ds.  \exists r. \mathrm{DataSource}(ds) \rightarrow  \mathrm{includes}(r, ds) \wedge \mathrm{Resource}(r)  
     </pre>
 
     <p>A data source cannot belong to two different resources; it is included in one at most.</p>
     <pre>
-\forall ds, r_1, r_2 \, ( \mathrm{includes}(r_1, ds) \wedge \mathrm{includes}(r_2, ds) \rightarrow r_1 = r_2 )
+\forall ds, r_1, r_2 .  \mathrm{includes}(r_1, ds) \wedge \mathrm{includes}(r_2, ds) \rightarrow r_1 = r_2
     </pre>
   </section>
 
@@ -182,52 +182,56 @@
 
     <p>The first argument of hasSlot is a Container and the second is a Slot.</p>
     <pre>
-\forall c, s \, ( \mathrm{hasSlot}(c, s) \rightarrow \mathrm{Container}(c) \wedge \mathrm{Slot}(s) )
+\forall c, s.  \mathrm{hasSlot}(c, s) \rightarrow \mathrm{Container}(c) \wedge \mathrm{Slot}(s)
     </pre>
 
     <p>The first argument of hasValue is a slot and the second is a value.</p>
     <pre>
-\forall s, v \, ( \mathrm{hasValue}(s, v) \rightarrow \mathrm{Slot}(s) \wedge \mathrm{Value}(v) )
+\forall s, v.  \mathrm{hasValue}(s, v) \rightarrow \mathrm{Slot}(s) \wedge \mathrm{Value}(v) 
     </pre>
 
     <p>The first argument of hasContainer is a slot and the second is a container.</p>
     <pre>
-\forall s, c \, ( \mathrm{hasContainer}(s, c) \rightarrow \mathrm{Slot}(s) \wedge \mathrm{Container}(c) )
+\forall s, c .  \mathrm{hasContainer}(s, c) \rightarrow \mathrm{Slot}(s) \wedge \mathrm{Container}(c) 
     </pre>
+
+
+    <p>The first argument of includesContainer is a data source and the second is a container.</p>
+    <pre>
+  \forall ds, c .  \mathrm{includesContainer}(ds, c) \rightarrow \mathrm{DataSource}(ds) \wedge \mathrm{Container}(c) 
+      </pre>
 
     <p>Every NumberSlot is a slot.</p>
     <pre>
-\forall s \, ( \mathrm{NumberSlot}(s) \rightarrow \mathrm{Slot}(s) )
+\forall s .  \mathrm{NumberSlot}(s) \rightarrow \mathrm{Slot}(s) 
     </pre>
 
     <p>Every StringSlot is a slot.</p>
     <pre>
-\forall s \, ( \mathrm{StringSlot}(s) \rightarrow \mathrm{Slot}(s) )
+\forall s . \mathrm{StringSlot}(s) \rightarrow \mathrm{Slot}(s)
     </pre>
 
     <p>A slot identified by a string cannot also be a NumberSlot.</p>
     <pre>
-\forall s \, ( \mathrm{StringSlot}(s) \rightarrow \neg \mathrm{NumberSlot}(s) )
+\forall s . \mathrm{StringSlot}(s) \rightarrow \neg \mathrm{NumberSlot}(s) 
     </pre>
 
     <p>Every slot must be either a NumberSlot or a StringSlot.</p>
     <pre>
-\forall s \, ( \mathrm{Slot}(s) \rightarrow \mathrm{NumberSlot}(s) \vee \mathrm{StringSlot}(s) )
+\forall s .  \mathrm{Slot}(s) \rightarrow \mathrm{NumberSlot}(s) \vee \mathrm{StringSlot}(s) 
     </pre>
-
-    <p>If a data source includes a container, then the first is a data source and the second is a container.</p>
     <pre>
-\forall ds, c \, ( \mathrm{includesContainer}(ds, c) \rightarrow \mathrm{DataSource}(ds) \wedge \mathrm{Container}(c) )
+\nexists s. \mathrm{NumberSlot}(s) \wedge \mathrm{StringSlot}(s) 
     </pre>
 
     <p>Every container must belong to some data source.</p>
     <pre>
-\forall c \, ( \mathrm{Container}(c) \rightarrow \exists ds \, ( \mathrm{includesContainer}(ds, c) \wedge \mathrm{DataSource}(ds) ) )
+\forall c . \exists ds .   \mathrm{Container}(c) \rightarrow  \mathrm{includesContainer}(ds, c) \wedge \mathrm{DataSource}(ds) 
     </pre>
 
     <p>A container cannot belong to more than one data source.</p>
     <pre>
-\forall c, ds_1, ds_2 \, ( \mathrm{includesContainer}(ds_1, c) \wedge \mathrm{includesContainer}(ds_2, c) \rightarrow ds_1 = ds_2 )
+\forall c, ds_1, ds_2 .  \mathrm{includesContainer}(ds_1, c) \wedge \mathrm{includesContainer}(ds_2, c) \rightarrow ds_1 = ds_2 
     </pre>
   </section>
 
@@ -240,65 +244,53 @@
       There cannot exist a container c and a slot s such that c contains s and s holds c.
       Each container cannot recursively contain itself through a sequence of slots and containers.
     </p>
-    <p>
-      <strong>Predicate Definition</strong>
-      Slots act as unique positions inside containers.
-      Each slot belongs to exactly one container and holds exactly one item,
-      either a primitive value or another container.
-      The containment structure is acyclic.
-    </p>
-
+  
     <p>Every value must be assigned to some slot.</p>
     <pre>
-\forall v \, ( \mathrm{Value}(v) \rightarrow \exists s \, \mathrm{hasValue}(s, v) )
+\forall v . \exists s . \mathrm{Value}(v) \rightarrow \mathrm{hasValue}(s, v)
     </pre>
 
     <p>Every slot must be contained in some container.</p>
     <pre>
-\forall s \, ( \mathrm{Slot}(s) \rightarrow \exists c \, \mathrm{hasSlot}(c, s) )
+\forall s . \exists c.  \mathrm{Slot}(s) \rightarrow   \mathrm{hasSlot}(c, s) 
     </pre>
 
     <p>Each slot belongs to exactly one container.</p>
     <pre>
-\forall s, c_1, c_2 \, ( \mathrm{hasSlot}(c_1, s) \wedge \mathrm{hasSlot}(c_2, s) \rightarrow c_1 = c_2 )
+\forall s, c_1, c_2 .  \mathrm{hasSlot}(c_1, s) \wedge \mathrm{hasSlot}(c_2, s) \rightarrow c_1 = c_2
     </pre>
 
     <p>Every slot must hold either a container or a value.</p>
     <pre>
-\forall s \, ( \mathrm{Slot}(s) \rightarrow ( \exists x \, \mathrm{hasContainer}(s, x) ) \vee ( \exists x \, \mathrm{hasValue}(s, x) ) )
+\forall s . \exists x. \mathrm{Slot}(s) \rightarrow  \mathrm{hasContainer}(s, x)  \vee  \mathrm{hasValue}(s, x) 
     </pre>
 
     <p>A slot cannot simultaneously hold a container and a value.</p>
     <pre>
-\forall s, x \, ( \mathrm{hasContainer}(s, x) \rightarrow \neg \mathrm{hasValue}(s, x) )
+\forall s, x . \mathrm{hasContainer}(s, x) \rightarrow \neg \mathrm{hasValue}(s, x)
     </pre>
 
     <p>A slot can hold at most one container.</p>
     <pre>
-\forall s, c_1, c_2 \, ( \mathrm{hasContainer}(s, c_1) \wedge \mathrm{hasContainer}(s, c_2) \rightarrow c_1 = c_2 )
+\forall s, c_1, c_2 . \mathrm{hasContainer}(s, c_1) \wedge \mathrm{hasContainer}(s, c_2) \rightarrow c_1 = c_2 
     </pre>
 
     <p>A slot can hold at most one value.</p>
     <pre>
-\forall s, v_1, v_2 \, ( \mathrm{hasValue}(s, v_1) \wedge \mathrm{hasValue}(s, v_2) \rightarrow v_1 = v_2 )
+\forall s, v_1, v_2 . \mathrm{hasValue}(s, v_1) \wedge \mathrm{hasValue}(s, v_2) \rightarrow v_1 = v_2 
     </pre>
 
     <p>A container cannot directly contain itself via one of its slots.</p>
     <pre>
-\forall c, s \, ( \mathrm{hasSlot}(c, s) \rightarrow \neg \mathrm{hasContainer}(s, c) )
+\forall c, s . \mathrm{hasSlot}(c, s) \rightarrow \neg \mathrm{hasContainer}(s, c) 
     </pre>
 
-    <p>No container may (even indirectly) contain itself; the containment graph is acyclic.</p>
+    <p>No container may (even indirectly) contain itself, namely, the containment graph is acyclic.</p>
     <pre>
-\neg \exists c, s_1,\ldots,s_n, c_1,\ldots,c_n \, (
+\neg \exists c, s_1,\ldots,s_n, c_1,\ldots,c_n .
   \mathrm{hasSlot}(c, s_1) \wedge \mathrm{hasContainer}(s_1, c_1) \wedge \ldots \wedge \mathrm{hasSlot}(c_{n-1}, s_n) \wedge \mathrm{hasContainer}(s_n, c)
-)
     </pre>
 
-    <p>A container cannot have two distinct slots occupying the same position.</p>
-    <pre>
-\forall c, s_1, s_2 \, ( \mathrm{hasSlot}(c, s_1) \wedge \mathrm{hasSlot}(c, s_2) \rightarrow s_1 = s_2 )
-    </pre>
   </section>
 
   <section>
@@ -313,92 +305,86 @@
       <strong>Predicate Definition</strong>
       <code>Type(x)</code> denotes a classification assigned to containers.
       <code>hasType(c,t)</code> links a container to a type.
-      Types exist only as annotations of containers.
     </p>
 
-    <p>If a container has a type, then the first is a container and the second is a type.</p>
+    <p>The first argument of hasType is a container and the second is a type.</p>
     <pre>
-\forall c, t \, ( \mathrm{hasType}(c, t) \rightarrow \mathrm{Container}(c) \wedge \mathrm{Type}(t) )
+\forall c, t  . \mathrm{hasType}(c, t) \rightarrow \mathrm{Container}(c) \wedge \mathrm{Type}(t) 
     </pre>
 
     <p>Every type must be assigned to at least one container.</p>
     <pre>
-\forall t \, ( \mathrm{Type}(t) \rightarrow \exists c \, \mathrm{hasType}(c, t) )
+\forall t . \exists c . \mathrm{Type}(t) \rightarrow  \mathrm{hasType}(c, t) 
     </pre>
   </section>
 
   <section>
-    <h2>Definition 5 — Disjointness</h2>
-    The unary predicates Container, Slot, Value, and Type are pairwise disjoint.  
-    <p>
-      <strong>Predicate Definition</strong>
-      The categories <code>Container</code>, <code>Slot</code>, <code>Value</code>, and <code>Type</code>
-      are mutually exclusive.
-    </p>
-
+    <h2>Disjointness</h2>
+    The unary predicates Container, Slot, Value, and Type are pairwise disjoint.
+    
     <p>Nothing can be both a container and a slot.</p>
     <pre>
-\forall x \, ( \mathrm{Container}(x) \rightarrow \neg \mathrm{Slot}(x) )
+\forall x . \mathrm{Container}(x) \rightarrow \neg \mathrm{Slot}(x) 
     </pre>
 
     <p>Nothing can be both a container and a value.</p>
     <pre>
-\forall x \, ( \mathrm{Container}(x) \rightarrow \neg \mathrm{Value}(x) )
+\forall x . \mathrm{Container}(x) \rightarrow \neg \mathrm{Value}(x) 
     </pre>
 
     <p>Nothing can be both a container and a type.</p>
     <pre>
-\forall x \, ( \mathrm{Container}(x) \rightarrow \neg \mathrm{Type}(x) )
+\forall x . \mathrm{Container}(x) \rightarrow \neg \mathrm{Type}(x) 
     </pre>
 
     <p>Nothing can be both a slot and a container.</p>
     <pre>
-\forall x \, ( \mathrm{Slot}(x) \rightarrow \neg \mathrm{Container}(x) )
+\forall x . \mathrm{Slot}(x) \rightarrow \neg \mathrm{Container}(x) 
     </pre>
 
     <p>Nothing can be both a slot and a value.</p>
     <pre>
-\forall x \, ( \mathrm{Slot}(x) \rightarrow \neg \mathrm{Value}(x) )
+\forall x . \mathrm{Slot}(x) \rightarrow \neg \mathrm{Value}(x) 
     </pre>
 
     <p>Nothing can be both a slot and a type.</p>
     <pre>
-\forall x \, ( \mathrm{Slot}(x) \rightarrow \neg \mathrm{Type}(x) )
+\forall x . \mathrm{Slot}(x) \rightarrow \neg \mathrm{Type}(x) 
     </pre>
 
     <p>Nothing can be both a value and a container.</p>
     <pre>
-\forall x \, ( \mathrm{Value}(x) \rightarrow \neg \mathrm{Container}(x) )
+\forall x . \mathrm{Value}(x) \rightarrow \neg \mathrm{Container}(x) 
     </pre>
 
     <p>Nothing can be both a value and a slot.</p>
     <pre>
-\forall x \, ( \mathrm{Value}(x) \rightarrow \neg \mathrm{Slot}(x) )
+\forall x . \mathrm{Value}(x) \rightarrow \neg \mathrm{Slot}(x) 
     </pre>
 
     <p>Nothing can be both a value and a type.</p>
     <pre>
-\forall x \, ( \mathrm{Value}(x) \rightarrow \neg \mathrm{Type}(x) )
+\forall x . \mathrm{Value}(x) \rightarrow \neg \mathrm{Type}(x) 
     </pre>
 
     <p>Nothing can be both a type and a container.</p>
     <pre>
-\forall x \, ( \mathrm{Type}(x) \rightarrow \neg \mathrm{Container}(x) )
+\forall x . \mathrm{Type}(x) \rightarrow \neg \mathrm{Container}(x)
     </pre>
 
     <p>Nothing can be both a type and a slot.</p>
     <pre>
-\forall x \, ( \mathrm{Type}(x) \rightarrow \neg \mathrm{Slot}(x) )
+\forall x . \mathrm{Type}(x) \rightarrow \neg \mathrm{Slot}(x) 
     </pre>
 
     <p>Nothing can be both a type and a value.</p>
     <pre>
-\forall x \, ( \mathrm{Type}(x) \rightarrow \neg \mathrm{Value}(x) )
+\forall x . \mathrm{Type}(x) \rightarrow \neg \mathrm{Value}(x) 
     </pre>
   </section>
 
   <section>
-    <h2>Root Container</h2>+
+    <h2>Root Container</h2>
     <p>
   For each data source, there exists one and only one Root container.
   The Root container cannot be assigned to a slot.
@@ -415,45 +401,45 @@
 
     <p>Every data source must have at least one root container.</p>
     <pre>
-\forall ds \, ( \mathrm{DataSource}(ds) \rightarrow \exists r \, \mathrm{hasRoot}(ds, r) )
+\forall ds . \exists r . \mathrm{DataSource}(ds) \rightarrow  \mathrm{hasRoot}(ds, r) 
     </pre>
 
-    <p>If a data source has a root, then the first is a data source and the second is a root.</p>
+    <p>The first  argument of hasRoot is a data source and the second is a root.</p>
     <pre>
-\forall ds, r \, ( \mathrm{hasRoot}(ds, r) \rightarrow \mathrm{DataSource}(ds) \wedge \mathrm{Root}(r) )
+\forall ds, r . \mathrm{hasRoot}(ds, r) \rightarrow \mathrm{DataSource}(ds) \wedge \mathrm{Root}(r) 
     </pre>
 
     <p>Every root container is the root of some data source.</p>
     <pre>
-\forall r \, ( \mathrm{Root}(r) \rightarrow \exists ds \, \mathrm{hasRoot}(ds, r) )
+\forall r . \exists ds . \mathrm{Root}(r) \rightarrow  \mathrm{hasRoot}(ds, r) 
     </pre>
 
     <p>The root container of a data source is included in that data source.</p>
     <pre>
-\forall ds, r \, ( \mathrm{hasRoot}(ds, r) \rightarrow \mathrm{includesContainer}(ds, r) )
+\forall ds, r . \mathrm{hasRoot}(ds, r) \rightarrow \mathrm{includesContainer}(ds, r) 
     </pre>
 
     <p>Every root is also a container.</p>
     <pre>
-\forall x \, ( \mathrm{Root}(x) \rightarrow \mathrm{Container}(x) )
+\forall x . \mathrm{Root}(x) \rightarrow \mathrm{Container}(x) 
     </pre>
 
     <p>A root container cannot be nested inside any slot.</p>
     <pre>
-\forall r, s \, ( \mathrm{Root}(r) \rightarrow \neg \mathrm{hasContainer}(s, r) )
+\forall r, s . \mathrm{Root}(r) \rightarrow \neg \mathrm{hasContainer}(s, r) 
     </pre>
 
-    <p>Each data source has exactly one root container.</p>
+    <p>Each data source cannot have more than one root container.</p>
     <pre>
-\forall ds, r_1, r_2 \, ( \mathrm{hasRoot}(ds, r_1) \wedge \mathrm{hasRoot}(ds, r_2) \rightarrow r_1 = r_2 )
+\forall ds, r_1, r_2 . \mathrm{hasRoot}(ds, r_1) \wedge \mathrm{hasRoot}(ds, r_2) \rightarrow r_1 = r_2 
     </pre>
 
     <p>Every non-root container must be contained in some slot.</p>
     <pre>
-\forall c \, ( \mathrm{Container}(c) \wedge \neg \mathrm{Root}(c) \rightarrow \exists s \, \mathrm{hasContainer}(s, c) )
+\forall c . \exists s . \mathrm{Container}(c) \wedge \neg \mathrm{Root}(c) \rightarrow \mathrm{hasContainer}(s, c) 
     </pre>
   </section>
-  </main>
+
 
 
 </body>
