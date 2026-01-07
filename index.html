@@ -68,8 +68,16 @@
 
   <section class="informative">
     <h2>Introduction</h2>
-    <p>Fa&ccedil;ade-X is the meta-model resulting from the abstraction of all the basic data structures used to
-      represent source data formats, combined into a unified model.</p>
+    <p>Fa&ccedil;ade-X is the (meta-)model resulting from the abstraction of all the basic data structures used to
+      represent source data formats, combined into a unified model.
+      The Figure below provide an intuive overview of Fa&ccedil;ade-X.
+    </p>
+
+
+    <figure id="figure">
+      <img src="model.png" alt="Facade-X model" />
+      <figcaption>A diagram of the Fa&ccedil;ade-X model</figcaption>
+    </figure>
 
   </section>
 
@@ -244,7 +252,7 @@
       There cannot exist a container c and a slot s such that c contains s and s holds c.
       Each container cannot recursively contain itself through a sequence of slots and containers.
     </p>
-  
+
     <p>Every value must be assigned to some slot.</p>
     <pre>
 \forall v . \exists s . \mathrm{Value}(v) \rightarrow \mathrm{hasValue}(s, v)
@@ -321,7 +329,7 @@
   <section>
     <h2>Disjointness</h2>
     The unary predicates Container, Slot, Value, and Type are pairwise disjoint.
-    
+
     <p>Nothing can be both a container and a slot.</p>
     <pre>
 \forall x . \mathrm{Container}(x) \rightarrow \neg \mathrm{Slot}(x) 
@@ -386,11 +394,12 @@
   <section>
     <h2>Root Container</h2>
     <p>
-  For each data source, there exists one and only one Root container.
-  The Root container cannot be assigned to a slot.
-  Containers that are not root must be assigned to a slot.
-  To identify the root container we introduce the unary predicate <code>Root</code> as a specialisation of Container and the binary predicate <code>hasRoot</code> that connects a data source to its root container.
-</p>
+      For each data source, there exists one and only one Root container.
+      The Root container cannot be assigned to a slot.
+      Containers that are not root must be assigned to a slot.
+      To identify the root container we introduce the unary predicate <code>Root</code> as a specialisation of Container
+      and the binary predicate <code>hasRoot</code> that connects a data source to its root container.
+    </p>
 
     <p>
       <strong>Predicate Definition</strong>
@@ -404,7 +413,7 @@
 \forall ds . \exists r . \mathrm{DataSource}(ds) \rightarrow  \mathrm{hasRoot}(ds, r) 
     </pre>
 
-    <p>The first  argument of hasRoot is a data source and the second is a root.</p>
+    <p>The first argument of hasRoot is a data source and the second is a root.</p>
     <pre>
 \forall ds, r . \mathrm{hasRoot}(ds, r) \rightarrow \mathrm{DataSource}(ds) \wedge \mathrm{Root}(r) 
     </pre>
