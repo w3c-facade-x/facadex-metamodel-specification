@@ -401,6 +401,7 @@
     The unary predicates Container, Slot, Value, and Type are pairwise disjoint.
     The unary predicates DataSource and Resource are disjoint from Container, Slot, Value, and Type.
     The unary predicate Root is disjoint from Type, Slot, Value, DataSource, and Resource.
+    The binary predicates includes, includesContainer, hasType, hasSlot, hasContainer, and hasValue are pairwise disjoint.
 
     <p>Nothing can be both a container and a slot.</p>
     <pre>
@@ -525,6 +526,81 @@
     <p>Nothing can be both a root and a resource.</p>
     <pre>
 \forall x . \mathrm{Root}(x) \Rightarrow \neg \mathrm{Resource}(x) 
+    </pre>
+
+    <p>No pair can be related by both includes and includesContainer.</p>
+    <pre>
+\forall x, y . \mathrm{includes}(x, y) \Rightarrow \neg \mathrm{includesContainer}(x, y) 
+    </pre>
+
+    <p>No pair can be related by both includes and hasType.</p>
+    <pre>
+\forall x, y . \mathrm{includes}(x, y) \Rightarrow \neg \mathrm{hasType}(x, y) 
+    </pre>
+
+    <p>No pair can be related by both includes and hasSlot.</p>
+    <pre>
+\forall x, y . \mathrm{includes}(x, y) \Rightarrow \neg \mathrm{hasSlot}(x, y) 
+    </pre>
+
+    <p>No pair can be related by both includes and hasContainer.</p>
+    <pre>
+\forall x, y . \mathrm{includes}(x, y) \Rightarrow \neg \mathrm{hasContainer}(x, y) 
+    </pre>
+
+    <p>No pair can be related by both includes and hasValue.</p>
+    <pre>
+\forall x, y . \mathrm{includes}(x, y) \Rightarrow \neg \mathrm{hasValue}(x, y) 
+    </pre>
+
+    <p>No pair can be related by both includesContainer and hasType.</p>
+    <pre>
+\forall x, y . \mathrm{includesContainer}(x, y) \Rightarrow \neg \mathrm{hasType}(x, y) 
+    </pre>
+
+    <p>No pair can be related by both includesContainer and hasSlot.</p>
+    <pre>
+\forall x, y . \mathrm{includesContainer}(x, y) \Rightarrow \neg \mathrm{hasSlot}(x, y) 
+    </pre>
+
+    <p>No pair can be related by both includesContainer and hasContainer.</p>
+    <pre>
+\forall x, y . \mathrm{includesContainer}(x, y) \Rightarrow \neg \mathrm{hasContainer}(x, y) 
+    </pre>
+
+    <p>No pair can be related by both includesContainer and hasValue.</p>
+    <pre>
+\forall x, y . \mathrm{includesContainer}(x, y) \Rightarrow \neg \mathrm{hasValue}(x, y) 
+    </pre>
+
+    <p>No pair can be related by both hasType and hasSlot.</p>
+    <pre>
+\forall x, y . \mathrm{hasType}(x, y) \Rightarrow \neg \mathrm{hasSlot}(x, y) 
+    </pre>
+
+    <p>No pair can be related by both hasType and hasContainer.</p>
+    <pre>
+\forall x, y . \mathrm{hasType}(x, y) \Rightarrow \neg \mathrm{hasContainer}(x, y) 
+    </pre>
+
+    <p>No pair can be related by both hasType and hasValue.</p>
+    <pre>
+\forall x, y . \mathrm{hasType}(x, y) \Rightarrow \neg \mathrm{hasValue}(x, y) 
+    </pre>
+
+    <p>No pair can be related by both hasSlot and hasContainer.</p>
+    <pre>
+\forall x, y . \mathrm{hasSlot}(x, y) \Rightarrow \neg \mathrm{hasContainer}(x, y) 
+    </pre>
+
+    <p>No pair can be related by both hasSlot and hasValue.</p>
+    <pre>
+\forall x, y . \mathrm{hasSlot}(x, y) \Rightarrow \neg \mathrm{hasValue}(x, y) 
+    </pre>
+
+    <p>No pair can be related by both hasContainer and hasValue.</p>
+    <pre>
+\forall x, y . \mathrm{hasContainer}(x, y) \Rightarrow \neg \mathrm{hasValue}(x, y) 
     </pre>
   </section>
 
